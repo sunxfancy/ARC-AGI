@@ -200,6 +200,40 @@ function randomTask() {
     });
 }
 
+function printTask(tasks, index) {
+    var task = tasks[index];
+    $.getJSON(task["download_url"], function(json) {
+        try {
+            train = json['train'];
+            test = json['test'];
+        } catch (e) {
+            errorMsg('Bad file format');
+            return;
+        }
+        loadJSONTask(train, test);
+        //$('#load_task_file_input')[0].value = "";
+        infoMsg("Loaded task training/" + task["name"]);
+        display_task_name(task['name'], index, tasks.length);
+
+        let htmlElement = document.getElementById('task_preview');
+        html2pdf().from(htmlElement).save(task["name"]+'.pdf');
+
+        if (index+1 < tasks.length) {
+            printTask(tasks, index + 1);
+        }
+    });
+}
+
+function printAll() {
+    var subset = "training";
+    $.getJSON("https://api.github.com/repos/fchollet/ARC/contents/data/" + subset, function(tasks) {
+        printTask(tasks, 0);
+    })
+    .error(function(){
+      errorMsg('Error loading task list');
+    });
+}
+
 function nextTestInput() {
     if (TEST_PAIRS.length <= CURRENT_TEST_PAIR_INDEX + 1) {
         errorMsg('No next test input. Pick another file?')

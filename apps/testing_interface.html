@@ -13,7 +13,7 @@
         <link rel="stylesheet" type="text/css" href="css/testing_interface.css">
 
         <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </head>
     <body>
         <div id="modal_bg">
@@ -48,6 +48,7 @@
                         <input type="file" id="load_task_file_input" class="load_task" style="display: none;"/>
                         <input type="button" value="Browse..." onclick="document.getElementById('load_task_file_input').click();" />
                         <button onclick="randomTask()" id="random_task_btn"> Random... </button>
+                        <button onclick="printAll()" id="print_all_btn"> Print all </button>
                         <p>
                         <label id='task_name' for="random_task_btn"> Task name: </label>
                         <p>
